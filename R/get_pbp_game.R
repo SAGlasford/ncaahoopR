@@ -8,7 +8,9 @@
 #' (Default = TRUE).
 #' @return A data frame of the Play-by-Play data for desired games.
 #' @export
-get_pbp_game <- function(game_ids, extra_parse = T) {
+get_pbp_game <- function(game_ids, extra_parse = T,
+                         base_url = "https://www.espn.com/mens-college-basketball/playbyplay?gameId=",
+                         summary_url = "https://www.espn.com/mens-college-basketball/game?gameId=") {
   ### Error Testing
   if(all(is.na(game_ids))) {
     stop("game_ids is missing with no default")
@@ -18,8 +20,10 @@ get_pbp_game <- function(game_ids, extra_parse = T) {
     ids <- create_ids_df()
   }
   ### Get Play-by-Play Data
-  base_url <- "https://www.espn.com/mens-college-basketball/playbyplay?gameId="
-  summary_url <- "https://www.espn.com/mens-college-basketball/game?gameId="
+  # base_url <- "https://www.espn.com/mens-college-basketball/playbyplay?gameId=" 
+  # String format changed to 'https://www.espn.com/mens-college-basketball/playbyplay/_/gameId/nnnnnnnnn' need to parameterize the string 3/3/2023 SG  
+  # summary_url <- "https://www.espn.com/mens-college-basketball/game?gameId=" 
+  # String format changed to espn changed https://www.espn.com/mens-college-basketball/game/_/gameId/nnnnnnnnn need to parameterize the string 3/3/2023 SG
   
   for(g in 1:length(game_ids)) {
     message(paste0("Scraping Data for Game: ", g, " of ", length(game_ids)))
